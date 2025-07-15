@@ -18,30 +18,30 @@
       <div class="col-md-6">
         <h3 class="text-center mb-4">Add New User</h3>
         
-        <form action="/new" method="POST">
+        <form id="userForm" action="/new" method="POST">
           <div class="mb-3">
             <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+            <input type="text" class="form-control" id="name" placeholder="Enter your name" name="name" required>
           </div>
 
           <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+            <textarea class="form-control" id="description" placeholder="Something..." name="description" rows="3" required></textarea>
           </div>
 
           <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" name="email" required>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
           </div>
 
           <div class="mb-3">
             <label for="mobileNo" class="form-label">Mobile No</label>
-            <input type="number" class="form-control" id="mobileNo" name="mobileNo" required>
+            <input type="number" placeholder="Enter your number" class="form-control" id="mobileNo"  name="mobileNo" required>
           </div>
 
           <div class="mb-3">
             <label for="address" class="form-label">Address</label>
-            <textarea class="form-control" id="address" name="address" rows="2" required></textarea>
+            <textarea class="form-control" placeholder="Enter address" id="address" name="address" rows="2" required></textarea>
           </div>
 
           <button type="submit" class="btn btn-primary w-100">Add User</button>
@@ -49,6 +49,29 @@
       </div>
     </div>
   </div>
+
+  <script>
+    let form = document.getElementById("userForm");
+
+    form.addEventListener("submit" , (e) =>{
+      const email = document.getElementById("email").value;
+      const mobile = document.getElementById("mobileNo").value;
+      const checkEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const mobileCheck = /^[6-9]\d{9}$/;
+
+      if(!checkEmail.test(email)) {
+        alert("Please Enter a valid email")
+        e.preventDefault();
+        return;
+      }
+      if(!mobileCheck.test(mobile)) {
+        alert("Please enter a valid number")
+        e.preventDefault();
+        return;
+      }
+    })
+
+  </script>
 
 </body>
 </html>

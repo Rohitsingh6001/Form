@@ -11,6 +11,7 @@ const User = require("./Models/UserModel.js");
 const Login = require("./Models/UserLogin.js");
 const isLoggedIn = require("./Middleware/auth.js");
 const isOwner = require("./Middleware/owner.js");
+const isValidate = require("./Middleware/email&NumValidate.js");
 dotenv.config();
 
 const port = 8080
@@ -77,7 +78,7 @@ app.get("/new", isLoggedIn, (req, res) => {
      res.render("New.ejs");
 })
 
-app.post("/new", isLoggedIn, async (req, res) => {
+app.post("/new", isLoggedIn, isValidate,async (req, res) => {
      const { name, description, email, mobileNo, address } = req.body;
      const newPost = new User({ name, description, email, mobileNo, address, createdBy:req.user._id});
      await newPost.save();
@@ -87,8 +88,7 @@ app.get("/edit/:id", isLoggedIn,isOwner, async (req, res) => {
      const user = await User.findById(req.params.id);
      res.render("Edit.ejs", { user });
 })
-
-app.put("/edit/:id", isLoggedIn, isOwner, async (req, res) => {
+app.put("/edit/:id", isLoggedIn,isValidate, isOwner, async (req, res) => {
      const { id } = req.params;
      const updatedUser = await User.findByIdAndUpdate(id, req.body)
      await updatedUser.save();
