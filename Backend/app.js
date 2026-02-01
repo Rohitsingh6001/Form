@@ -76,7 +76,7 @@ app.get("/", async (req, res) => {
 
 app.get("/new", isLoggedIn, (req, res) => {
      res.render("New.ejs");
-})
+}) 
 
 app.post("/new", isLoggedIn, isValidate,async (req, res) => {
      const { name, description, email, mobileNo, address } = req.body;
